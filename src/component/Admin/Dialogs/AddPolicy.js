@@ -46,36 +46,6 @@ const policies = [
         img: "remote.png",
         path: "/admin/policy/add/remote",
     },
-    {
-        name: "qiniu",
-        img: "qiniu.png",
-        path: "/admin/policy/add/qiniu",
-    },
-    {
-        name: "oss",
-        img: "oss.png",
-        path: "/admin/policy/add/oss",
-    },
-    {
-        name: "upyun",
-        img: "upyun.png",
-        path: "/admin/policy/add/upyun",
-    },
-    {
-        name: "cos",
-        img: "cos.png",
-        path: "/admin/policy/add/cos",
-    },
-    {
-        name: "onedrive",
-        img: "onedrive.png",
-        path: "/admin/policy/add/onedrive",
-    },
-    {
-        name: "s3",
-        img: "s3.png",
-        path: "/admin/policy/add/s3",
-    },
 ];
 
 export default function AddPolicy({ open, onClose }) {
