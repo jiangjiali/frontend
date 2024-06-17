@@ -1,9 +1,6 @@
 import {
-    OneDriveError,
     Policy,
-    QiniuError,
     Response,
-    UpyunError,
 } from "../types";
 import { sizeToString } from "../utils";
 import i18next from "../../../../i18n";
@@ -25,17 +22,6 @@ export enum UploaderErrorName {
     CtxExpired = "CtxExpired",
     RequestCanceled = "RequestCanceled",
     ProcessingTaskDuplicated = "ProcessingTaskDuplicated",
-    OneDriveChunkUploadFailed = "OneDriveChunkUploadFailed",
-    OneDriveEmptyFile = "OneDriveEmptyFile",
-    FailedFinishOneDriveUpload = "FailedFinishOneDriveUpload",
-    S3LikeChunkUploadFailed = "S3LikeChunkUploadFailed",
-    S3LikeUploadCallbackFailed = "S3LikeUploadCallbackFailed",
-    COSUploadCallbackFailed = "COSUploadCallbackFailed",
-    COSPostUploadFailed = "COSPostUploadFailed",
-    UpyunPostUploadFailed = "UpyunPostUploadFailed",
-    QiniuChunkUploadFailed = "QiniuChunkUploadFailed",
-    FailedFinishOSSUpload = "FailedFinishOSSUpload",
-    FailedFinishQiniuUpload = "FailedFinishQiniuUpload",
     FailedTransformResponse = "FailedTransformResponse",
 }
 
@@ -215,172 +201,6 @@ export class ProcessingTaskDuplicatedError extends UploaderError {
 
     public Message(): string {
         return i18next.t(`uploader.conflictError`);
-    }
-}
-
-// OneDrive 分块上传失败
-export class OneDriveChunkError extends UploaderError {
-    constructor(public response: OneDriveError) {
-        super(
-            UploaderErrorName.OneDriveChunkUploadFailed,
-            response.error.message
-        );
-    }
-
-    public Message(): string {
-        let msg =  i18next.t(`uploader.chunkUploadErrorWithMsg`, {
-            msg: this.message,
-        });
-
-        if (this.response.error.retryAfterSeconds != undefined){
-            msg += " "+i18next.t(`uploader.chunkUploadErrorWithRetryAfter`, {
-                retryAfter: this.response.error.retryAfterSeconds,
-            })
-        }
-
-        return msg;
-    }
-
-    public Retryable(): boolean {
-        return (
-            super.Retryable() || this.response.error.retryAfterSeconds != undefined
-        );
-    }
-}
-
-// OneDrive 选择了空文件上传
-export class OneDriveEmptyFileSelected extends UploaderError {
-    constructor() {
-        super(UploaderErrorName.OneDriveEmptyFile, "empty file not supported");
-    }
-
-    public Message(): string {
-        return i18next.t("uploader.emptyFileError");
-    }
-}
-
-// OneDrive 无法完成文件上传
-export class OneDriveFinishUploadError extends APIError {
-    constructor(response: Response<any>) {
-        super(UploaderErrorName.FailedFinishOneDriveUpload, "", response);
-    }
-
-    public Message(): string {
-        this.message = i18next.t("uploader.finishUploadError");
-        return super.Message();
-    }
-}
-
-// S3 类策略分块上传失败
-export class S3LikeChunkError extends UploaderError {
-    constructor(public response: Document) {
-        super(
-            UploaderErrorName.S3LikeChunkUploadFailed,
-            response.getElementsByTagName("Message")[0].innerHTML
-        );
-    }
-
-    public Message(): string {
-        return i18next.t(`uploader.chunkUploadErrorWithMsg`, {
-            msg: this.message,
-        });
-    }
-}
-
-// OSS 完成传失败
-export class S3LikeFinishUploadError extends UploaderError {
-    constructor(public response: Document) {
-        super(
-            UploaderErrorName.S3LikeChunkUploadFailed,
-            response.getElementsByTagName("Message")[0].innerHTML
-        );
-    }
-
-    public Message(): string {
-        return i18next.t(`uploader.ossFinishUploadError`, {
-            msg: this.message,
-            code: this.response.getElementsByTagName("Code")[0].innerHTML,
-        });
-    }
-}
-
-// qiniu 分块上传失败
-export class QiniuChunkError extends UploaderError {
-    constructor(public response: QiniuError) {
-        super(UploaderErrorName.QiniuChunkUploadFailed, response.error);
-    }
-
-    public Message(): string {
-        return i18next.t(`uploader.chunkUploadErrorWithMsg`, {
-            msg: this.message,
-        });
-    }
-}
-
-// qiniu 完成传失败
-export class QiniuFinishUploadError extends UploaderError {
-    constructor(public response: QiniuError) {
-        super(UploaderErrorName.FailedFinishQiniuUpload, response.error);
-    }
-
-    public Message(): string {
-        return i18next.t(`uploader.finishUploadErrorWithMsg`, {
-            msg: this.message,
-        });
-    }
-}
-
-// COS 上传失败
-export class COSUploadError extends UploaderError {
-    constructor(public response: Document) {
-        super(
-            UploaderErrorName.COSPostUploadFailed,
-            response.getElementsByTagName("Message")[0].innerHTML
-        );
-    }
-
-    public Message(): string {
-        return i18next.t(`uploader.cosUploadFailed`, {
-            msg: this.message,
-            code: this.response.getElementsByTagName("Code")[0].innerHTML,
-        });
-    }
-}
-
-// COS 无法完成上传回调
-export class COSUploadCallbackError extends APIError {
-    constructor(response: Response<any>) {
-        super(UploaderErrorName.COSUploadCallbackFailed, "", response);
-    }
-
-    public Message(): string {
-        this.message = i18next.t("uploader.finishUploadError");
-        return super.Message();
-    }
-}
-
-// Upyun 上传失败
-export class UpyunUploadError extends UploaderError {
-    constructor(public response: UpyunError) {
-        super(UploaderErrorName.UpyunPostUploadFailed, response.message);
-    }
-
-    public Message(): string {
-        return i18next.t("uploader.upyunUploadFailed", {
-            msg: this.message,
-        });
-    }
-}
-
-// S3 无法完成上传回调
-export class S3LikeUploadCallbackError extends APIError {
-    constructor(response: Response<any>) {
-        super(UploaderErrorName.S3LikeUploadCallbackFailed, "", response);
-    }
-
-    public Message(): string {
-        this.message = i18next.t("uploader.finishUploadError");
-        return super.Message();
     }
 }
 

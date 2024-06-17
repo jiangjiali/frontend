@@ -13,12 +13,6 @@ import {
     listResumeCtx,
 } from "./utils";
 import Remote from "./uploader/remote";
-import OneDrive from "./uploader/onedrive";
-import OSS from "./uploader/oss";
-import Qiniu from "./uploader/qiniu";
-import COS from "./uploader/cos";
-import Upyun from "./uploader/upyun";
-import S3 from "./uploader/s3";
 import ResumeHint from "./uploader/placeholder";
 
 export interface Option {
@@ -93,18 +87,6 @@ export default class UploadManager {
                 return new Local(task, this);
             case PolicyType.remote:
                 return new Remote(task, this);
-            case PolicyType.onedrive:
-                return new OneDrive(task, this);
-            case PolicyType.oss:
-                return new OSS(task, this);
-            case PolicyType.qiniu:
-                return new Qiniu(task, this);
-            case PolicyType.cos:
-                return new COS(task, this);
-            case PolicyType.upyun:
-                return new Upyun(task, this);
-            case PolicyType.s3:
-                return new S3(task, this);
             default:
                 throw new UnknownPolicyError(
                     "Unknown policy type.",

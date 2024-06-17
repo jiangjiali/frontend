@@ -178,12 +178,6 @@ export default function Policy() {
                             "all",
                             "local",
                             "remote",
-                            "qiniu",
-                            "upyun",
-                            "oss",
-                            "cos",
-                            "onedrive",
-                            "s3",
                         ].map((v) => (
                             <MenuItem key={v} value={v}>
                                 {t(v)}

@@ -49,10 +49,6 @@ export interface Progress {
 const resumePolicy = [
     PolicyType.local,
     PolicyType.remote,
-    PolicyType.qiniu,
-    PolicyType.oss,
-    PolicyType.onedrive,
-    PolicyType.s3,
 ];
 const deleteUploadSessionDelay = 500;
 

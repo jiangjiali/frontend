@@ -3,12 +3,6 @@ import { ChunkProgress } from "./uploader/chunk";
 export enum PolicyType {
     local = "local",
     remote = "remote",
-    oss = "oss",
-    qiniu = "qiniu",
-    onedrive = "onedrive",
-    cos = "cos",
-    upyun = "upyun",
-    s3 = "s3",
 }
 
 export interface Policy {
@@ -69,48 +63,4 @@ export interface UploadCredential {
     keyTime: string;
     path: string;
     completeURL: string;
-}
-
-export interface OneDriveError {
-    error: {
-        code: string;
-        message: string;
-        innererror?: {
-            code: string;
-        };
-        retryAfterSeconds?: number;
-    };
-}
-
-export interface OneDriveChunkResponse {
-    expirationDateTime: string;
-    nextExpectedRanges: string[];
-}
-
-export interface QiniuChunkResponse {
-    etag: string;
-    md5: string;
-}
-
-export interface QiniuError {
-    error: string;
-}
-
-export interface QiniuPartsInfo {
-    etag: string;
-    partNumber: number;
-}
-
-export interface QiniuFinishUploadRequest {
-    parts: QiniuPartsInfo[];
-}
-
-export interface UpyunError {
-    message: string;
-    code: number;
-}
-
-export interface S3Part {
-    ETag: string;
-    PartNumber: number;
 }

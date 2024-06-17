@@ -5,15 +5,9 @@ import { useDispatch } from "react-redux";
 import { useParams } from "react-router";
 import { toggleSnackbar } from "../../../redux/explorer";
 import API from "../../../middleware/Api";
-import COSGuide from "./Guid/COSGuide";
 import EditPro from "./Guid/EditPro";
 import LocalGuide from "./Guid/LocalGuide";
-import OneDriveGuide from "./Guid/OneDriveGuide";
-import OSSGuide from "./Guid/OSSGuide";
-import QiniuGuide from "./Guid/QiniuGuide";
 import RemoteGuide from "./Guid/RemoteGuide";
-import UpyunGuide from "./Guid/UpyunGuide";
-import S3Guide from "./Guid/S3Guide";
 import { transformResponse } from "./utils";
 
 const useStyles = makeStyles((theme) => ({
@@ -62,14 +56,6 @@ export default function EditPolicyPreload() {
                     <>
                         {type === "local" && <LocalGuide policy={policy} />}
                         {type === "remote" && <RemoteGuide policy={policy} />}
-                        {type === "qiniu" && <QiniuGuide policy={policy} />}
-                        {type === "oss" && <OSSGuide policy={policy} />}
-                        {type === "upyun" && <UpyunGuide policy={policy} />}
-                        {type === "cos" && <COSGuide policy={policy} />}
-                        {type === "onedrive" && (
-                            <OneDriveGuide policy={policy} />
-                        )}
-                        {type === "s3" && <S3Guide policy={policy} />}
                     </>
                 )}
 

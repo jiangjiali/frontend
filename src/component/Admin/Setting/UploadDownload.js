@@ -49,11 +49,8 @@ export default function UploadDownload() {
         upload_credential_timeout: "0",
         upload_session_timeout: "0",
         slave_api_timeout: "0",
-        onedrive_monitor_timeout: "0",
         share_download_session_timeout: "0",
-        onedrive_callback_check: "0",
         reset_after_upload_failed: "0",
-        onedrive_source_timeout: "0",
         slave_node_retry: "0",
         slave_ping_interval: "0",
         slave_recover_interval: "0",
@@ -292,21 +289,6 @@ export default function UploadDownload() {
                                 name: "downloadSessionForShared",
                                 field: "share_download_session_timeout",
                                 des: "downloadSessionForSharedDes",
-                            },
-                            {
-                                name: "onedriveMonitorInterval",
-                                field: "onedrive_monitor_timeout",
-                                des: "onedriveMonitorIntervalDes",
-                            },
-                            {
-                                name: "onedriveCallbackTolerance",
-                                field: "onedrive_callback_check",
-                                des: "onedriveCallbackToleranceDes",
-                            },
-                            {
-                                name: "onedriveDownloadURLCache",
-                                field: "onedrive_source_timeout",
-                                des: "onedriveDownloadURLCacheDes",
                             },
                         ].map((input) => (
                             <div key={input.name} className={classes.form}>

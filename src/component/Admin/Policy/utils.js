@@ -1,6 +1,6 @@
 const boolFields = ["IsOriginLinkEnable", "AutoRename", "IsPrivate"];
 const numberFields = ["MaxSize"];
-const boolFieldsInOptions = ["placeholder_with_size", "s3_path_style"];
+const boolFieldsInOptions = ["placeholder_with_size"];
 const numberFieldsInOptions = ["chunk_size", "tps_limit", "tps_limit_burst"];
 const listJsonFieldsInOptions = ["file_type", "thumb_exts"];
 
