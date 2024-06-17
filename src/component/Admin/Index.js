@@ -96,7 +96,9 @@ export default function Index() {
         publicShareTotal: 0,
         secretShareTotal: 0,
     });
-
+    const [version, setVersion] = useState({
+        backend: "-",
+    });
     const dispatch = useDispatch();
     const ToggleSnackbar = useCallback(
         (vertical, horizontal, msg, color) =>
