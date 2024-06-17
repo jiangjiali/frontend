@@ -1,6 +1,5 @@
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
-import Chip from "@material-ui/core/Chip";
 import { blue, green, red, yellow } from "@material-ui/core/colors";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -12,25 +11,16 @@ import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import {
-    Description,
-    Favorite,
     FileCopy,
-    Forum,
-    GitHub,
-    Home,
-    Launch,
     Lock,
     People,
     Public,
-    Telegram,
 } from "@material-ui/icons";
-import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
@@ -43,11 +33,10 @@ import {
     YAxis,
 } from "recharts";
 import { ResponsiveContainer } from "recharts/lib/component/ResponsiveContainer";
-import TimeAgo from "timeago-react";
 import { toggleSnackbar } from "../../redux/explorer";
 import API from "../../middleware/Api";
 import pathHelper from "../../utils/page";
-import { Trans, useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -99,8 +88,6 @@ export default function Index() {
     const { t } = useTranslation("dashboard");
     const classes = useStyles();
     const [lineData, setLineData] = useState([]);
-    const [news, setNews] = useState([]);
-    const [newsUsers, setNewsUsers] = useState({});
     const [open, setOpen] = React.useState(false);
     const [siteURL, setSiteURL] = React.useState("");
     const [statistics, setStatistics] = useState({
@@ -108,9 +95,6 @@ export default function Index() {
         userTotal: 0,
         publicShareTotal: 0,
         secretShareTotal: 0,
-    });
-    const [version, setVersion] = useState({
-        backend: "-",
     });
 
     const dispatch = useDispatch();
@@ -169,27 +153,6 @@ export default function Index() {
             })
             .catch((error) => {
                 ToggleSnackbar("top", "right", error.message, "error");
-            });
-
-        axios
-            .get("/api/v3/admin/news?tag=" + t("summary.newsTag"))
-            .then((response) => {
-                setNews(response.data.data);
-                const res = {};
-                response.data.included.forEach((v) => {
-                    if (v.type === "users") {
-                        res[v.id] = v.attributes;
-                    }
-                });
-                setNewsUsers(res);
-            })
-            .catch((error) => {
-                ToggleSnackbar(
-                    "top",
-                    "right",
-                    t("summary.newsletterError"),
-                    "warning"
-                );
             });
     }, []);
 
