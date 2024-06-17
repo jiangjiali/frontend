@@ -22,7 +22,6 @@ import Link from "@material-ui/core/Link";
 import { toggleSnackbar } from "../../redux/explorer";
 import Nothing from "../Placeholder/Nothing";
 import { useTranslation } from "react-i18next";
-import AppPromotion from "./AppPromotion";
 import Tooltip from "@material-ui/core/Tooltip";
 import ToggleIcon from "material-ui-toggle-icon";
 import { Pencil, PencilOff } from "mdi-material-ui";
@@ -63,7 +62,6 @@ export default function WebDAV() {
     const [create, setCreate] = useState(false);
     const [accounts, setAccounts] = useState([]);
 
-    const appPromotion = useSelector((state) => state.siteConfig.app_promotion);
     const dispatch = useDispatch();
     const ToggleSnackbar = useCallback(
         (vertical, horizontal, msg, color) =>
@@ -192,7 +190,6 @@ export default function WebDAV() {
                     aria-label="disabled tabs example"
                 >
                     <Tab label={t("setting.webdavAccounts")} />
-                    {appPromotion && <Tab label={t("setting.iOSApp")} />}
                 </Tabs>
                 <div className={classes.cardContent}>
                     {tab === 0 && (
@@ -379,7 +376,6 @@ export default function WebDAV() {
                             </Button>
                         </div>
                     )}
-                    {tab === 1 && <AppPromotion />}
                 </div>
             </Paper>
         </div>
