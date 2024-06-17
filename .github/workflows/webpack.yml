@@ -1,4 +1,4 @@
-name: NodeJS with Webpack
+name: 构建前端
 
 on:
   workflow_dispatch:
@@ -27,6 +27,6 @@ jobs:
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: AuthenticatorPro
+        name: assets
         path: |
           build/*/**
